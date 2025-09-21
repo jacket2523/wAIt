@@ -114,6 +114,12 @@ if (exportBtn) exportBtn.onclick = ()=>{
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = 'journal-export.json'; a.click();
 };
+// ===== 清空 journal（頁面載入時） =====
+window.addEventListener('DOMContentLoaded', ()=>{
+  localStorage.removeItem('journals'); // 刪掉整個 journals
+  renderJournal(); // 更新畫面
+});
+
 renderJournal();
 
 // Reminders
@@ -352,8 +358,3 @@ drawMoodChart();
   });
 })();
 
-// ===== 清空 journal（頁面載入時） =====
-window.addEventListener('DOMContentLoaded', ()=>{
-  localStorage.removeItem('journals'); // 刪掉整個 journals
-  renderJournal(); // 更新畫面
-});
