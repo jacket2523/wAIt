@@ -351,3 +351,9 @@ drawMoodChart();
     window.location.href = `tel:${num}`;
   });
 })();
+
+// ===== 清空 journal（頁面載入時） =====
+window.addEventListener('DOMContentLoaded', ()=>{
+  localStorage.removeItem('journals'); // 刪掉整個 journals
+  renderJournal(); // 更新畫面
+});
