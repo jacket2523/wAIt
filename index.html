@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessible Counselling Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo"><img class="logo-img" src="logo.png" alt="wAIt logo"></div>
+        <div class="title">wAIt</div>
+      </div>
+      <div class="pill">Privacy-first • No login</div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="mascot">
+      <div class="big-emoji" id="bigEmoji" aria-live="polite">🙂</div>
+      <div class="feel-row" aria-label="choose emotion">
+        <button class="feel" data-emo="😄">😄</button>
+        <button class="feel" data-emo="🙂">🙂</button>
+        <button class="feel" data-emo="😐">😐</button>
+        <button class="feel" data-emo="🙁">🙁</button>
+        <button class="feel" data-emo="😭">😭</button>
+      </div>
+      <p class="hint">Tap a face—your big buddy mirrors it and your mood is logged.</p>
+    </section>
+
+    <!-- TABS -->
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab active" data-tab="chat">Chat</button>
+      <button role="tab" class="tab" data-tab="journal">Journal</button>
+      <button role="tab" class="tab" data-tab="reminders">Reminders</button>
+      <button class="tab" data-tab="tools">Tools</button>
+</nav>
+
+    <main class="views">
+      <!-- CHAT -->
+      <section id="view-chat" class="view active">
+        <div class="chat-actions">
+          <button id="urgentBtn" class="danger" type="button">🚨 Urgent</button>
+          <button id="clearChat" class="ghost" type="button">Clear chat</button>
+        </div>
+        <div id="chat" class="chat" aria-live="polite"></div>
+        <div class="composer">
+          <button id="mic" class="ghost" title="voice input">🎙️</button>
+          <input id="msg" placeholder="Say anything… I'm here." maxlength="300"/>
+          <button id="send" class="primary">Send</button>
+        </div>
+      </section>
+
+      <!-- JOURNAL -->
+      <section id="view-journal" class="view">
+        <div class="card">
+          <h3>Journal</h3>
+          <textarea id="journalText" rows="6" placeholder="Write anything that’s on your mind. Saved only on this device."></textarea>
+          <div class="row">
+            <button id="saveJournal" class="primary">Save</button>
+            <button id="exportJournal" class="ghost">Export (.json)</button>
+          </div>
+          <ul id="journalList" class="journal-list"></ul>
+        </div>
+      </section>
+
+      <!-- REMINDERS -->
+      <section id="view-reminders" class="view">
+        <div class="card">
+          <h3>Reminders</h3>
+          <div class="row wrap">
+            <input id="remText" placeholder="Reminder text (e.g., 5-min breathing)"/>
+            <div class="time-wrap">
+              <input id="remTime" type="time"/><span class="clock-icon" aria-hidden="true"></span></div>
+            <button id="addRem" class="primary">Add</button>
+          </div>
+          <ul id="remList" class="journal-list"></ul>
+        </div>
+      </section>
+    
+      <!-- TOOLS -->
+      <section id="view-tools" class="view">
+        <div class="card">
+          <h3>Breathing Coach</h3>
+          <div class="breath-controls">
+            <label>Mode</label>
+            <select id="breathMode">
+              <option value="box">Box (4-4-4-4)</option>
+              <option value="478">4-7-8</option>
+              <option value="coherent">Coherent (6 bpm)</option>
+            </select>
+            <button id="breathStart" class="primary">Start</button>
+            <button id="breathStop" class="ghost">Stop</button>
+          </div>
+          <div class="breath-stage" id="breathStage">Ready</div>
+          <div class="breath-anim">
+            <div class="bubble" id="breathBubble"></div>
+          </div>
+          <small class="muted">Follow the prompts. Animation grows on inhale, shrinks on exhale.</small>
+        </div>
+
+        <div class="card">
+          <h3>Mood Trends</h3>
+          <div id="trendWrap">
+            <svg id="moodChart" width="100%" height="140" viewBox="0 0 320 140" preserveAspectRatio="none"></svg>
+          </div>
+          <small class="muted">Tap any face on the home section to log your mood. Trends show the last 7 days.</small>
+        </div>
+
+        <div class="card">
+          <h3>Settings</h3>
+          <div class="settings-grid">
+            <label><input type="checkbox" id="ttsToggle"> Voice replies (TTS)</label>
+            <label><input type="checkbox" id="srToggle"> Mic input (Speech-to-Text)</label>
+            <button id="notifPerm" class="ghost">Allow Notifications</button>
+            <button id="notifTest" class="ghost">Send Test Reminder</button>
+            <button id="exportAll" class="primary">Export Data (.json)</button>
+            <label class="import-label">Import Data (.json) <input type="file" id="importAll" accept="application/json" hidden></label>
+          </div>
+          <small class="muted">Data is stored locally in your browser (journals, reminders, moods).</small>
+        </div>
+      </section>
+
+</main>
+
+    <footer class="foot">
+      <small>For support, not diagnosis. If in danger call 999 (MY).</small>
+    </footer>
+  </div>
+
+  <script>
+    // Keep the user's API URL exactly as in their original index.html
+    const API_URL = "https://o02576qs9a.execute-api.ap-southeast-5.amazonaws.com/dev/sendMSG";
+  </script>
+  <script src="app.js"></script>
+</body>
+
+</html>
